@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
  * Requires the refresh token to revoke it from the database.
  * The access token is automatically blacklisted via the Authorization header.
  *
- * @author Portfolio Project
  */
 @Data
 @NoArgsConstructor

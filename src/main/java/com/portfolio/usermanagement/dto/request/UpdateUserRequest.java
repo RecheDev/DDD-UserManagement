@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
  * DTO for updating user information.
  * All fields are optional - only provided fields will be updated.
  *
- * @author Portfolio Project
  */
 @Data
 @Builder

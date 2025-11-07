@@ -13,16 +13,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Base entity class that provides common audit fields for all entities.
- * This abstract class should be extended by all domain entities that require audit tracking.
- *
- * Provides automatic tracking of:
- * - Creation timestamp
- * - Last modification timestamp
- * - User who created the entity
- * - User who last modified the entity
- *
- * @author Portfolio Project
+ * Base entity with audit fields.
  */
 @Getter
 @Setter
@@ -46,10 +37,6 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "modified_by")
     private String modifiedBy;
 
-    /**
-     * Hook method called before persisting the entity.
-     * Ensures audit timestamps are set if not already present.
-     */
     @PrePersist
     protected void onCreate() {
         if (createdAt == null) {
@@ -60,10 +47,6 @@ public abstract class BaseEntity implements Serializable {
         }
     }
 
-    /**
-     * Hook method called before updating the entity.
-     * Ensures the updated timestamp is refreshed.
-     */
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();

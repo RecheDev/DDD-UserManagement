@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
  * DTO for login request.
  * Includes validation and automatic trimming of input.
  *
- * @author Portfolio Project
  */
 @Data
 @Builder

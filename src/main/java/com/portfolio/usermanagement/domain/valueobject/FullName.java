@@ -4,10 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * Value Object representing a person's full name.
- * Ensures name validity and immutability.
- *
- * @author Portfolio Project
+ * Value object for person names with validation.
  */
 @Getter
 @EqualsAndHashCode
@@ -21,14 +18,6 @@ public class FullName {
         this.lastName = lastName;
     }
 
-    /**
-     * Creates a FullName value object.
-     *
-     * @param firstName the first name
-     * @param lastName the last name
-     * @return FullName value object
-     * @throws IllegalArgumentException if names are invalid
-     */
     public static FullName of(String firstName, String lastName) {
         validateName(firstName, "First name");
         validateName(lastName, "Last name");
@@ -64,20 +53,10 @@ public class FullName {
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
-    /**
-     * Get the full name as a single string.
-     *
-     * @return first name + space + last name
-     */
     public String getFullName() {
         return firstName + " " + lastName;
     }
 
-    /**
-     * Get initials (e.g., "John Doe" -> "JD").
-     *
-     * @return initials in uppercase
-     */
     public String getInitials() {
         return firstName.substring(0, 1).toUpperCase()
              + lastName.substring(0, 1).toUpperCase();

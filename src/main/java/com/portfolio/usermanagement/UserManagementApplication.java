@@ -17,7 +17,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * - RESTful API with OpenAPI documentation
  * - Comprehensive testing (unit, integration, and API tests)
  *
- * @author Portfolio Project
  * @version 1.0.0
  * @since 2024
  */

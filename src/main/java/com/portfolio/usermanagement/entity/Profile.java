@@ -7,16 +7,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 /**
- * Profile entity representing additional user information.
- * Each user has exactly one profile (One-to-One relationship).
- *
- * Contains optional extended information about the user such as:
- * - Biography
- * - Avatar URL
- * - Contact information
- * - Personal details
- *
- * @author Portfolio Project
+ * Profile entity with extended user information.
  */
 @Entity
 @Table(

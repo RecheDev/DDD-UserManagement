@@ -4,7 +4,6 @@ package com.portfolio.usermanagement.exception;
  * Exception thrown when the client request is invalid.
  * Maps to HTTP 400 Bad Request.
  *
- * @author Portfolio Project
  */
 public class BadRequestException extends RuntimeException {
 

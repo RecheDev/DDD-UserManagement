@@ -24,7 +24,6 @@ import java.util.Map;
  * Global exception handler for the application.
  * Provides centralized exception handling and consistent error responses.
  *
- * @author Portfolio Project
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 /**
  * Request DTO for refreshing access tokens.
  *
- * @author Portfolio Project
  */
 @Data
 @NoArgsConstructor

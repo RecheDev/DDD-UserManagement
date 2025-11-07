@@ -101,7 +101,6 @@ public class AuthServiceImpl {
 
         User savedUser = userRepository.save(user);
 
-        // Record user registration metric
         metricsService.recordUserRegistration();
 
         Authentication authentication = authenticationManager.authenticate(
@@ -109,7 +108,6 @@ public class AuthServiceImpl {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
-        // Create refresh token
         String ipAddress = getClientIP(httpRequest);
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(savedUser, ipAddress);
 
@@ -123,7 +121,6 @@ public class AuthServiceImpl {
     public AuthResponse login(LoginRequest request, HttpServletRequest httpRequest) {
         String username = request.getUsername();
 
-        // Check if account is locked due to previous failed attempts
         if (accountLockoutService.isLocked(username)) {
             java.time.Duration remainingTime = accountLockoutService.getRemainingLockoutTime(username);
             long minutesRemaining = remainingTime != null ? remainingTime.toMinutes() : 0;
@@ -134,22 +131,17 @@ public class AuthServiceImpl {
         }
 
         try {
-            // Attempt authentication with provided credentials
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, request.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtUtils.generateJwtToken(authentication);
 
-            // Login succeeded - clear any failed attempt tracking
             accountLockoutService.loginSucceeded(username);
-
-            // Record successful login metric
             metricsService.recordLoginSuccess(username);
 
             User user = userRepository.findByUsername(username)
                     .orElseThrow(() -> new BadRequestException("User not found"));
 
-            // Create refresh token
             String ipAddress = getClientIP(httpRequest);
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(user, ipAddress);
 
@@ -159,34 +151,21 @@ public class AuthServiceImpl {
                     .user(convertToResponse(user))
                     .build();
         } catch (BadCredentialsException ex) {
-            // Record failed login attempt for brute force protection
             accountLockoutService.loginFailed(username);
-
-            // Record failed login metric
             metricsService.recordLoginFailure(username, "bad_credentials");
 
-            // Check if this failure triggered an account lockout
             if (accountLockoutService.isLocked(username)) {
                 metricsService.recordSecurityEvent("account_locked");
                 throw new LockedException("Account locked due to multiple failed login attempts. Try again in 30 minutes.");
             }
 
-            // Re-throw the original exception for normal error handling
             throw ex;
         }
     }
 
-    /**
-     * Logout user by blacklisting access token and revoking refresh token.
-     *
-     * @param logoutRequest contains the refresh token to revoke
-     * @param accessToken the JWT access token (from Authorization header)
-     */
     public void logout(LogoutRequest logoutRequest, String accessToken) {
-        // Revoke the refresh token
         refreshTokenService.revokeRefreshToken(logoutRequest.getRefreshToken());
 
-        // Blacklist the access token (JWT)
         if (accessToken != null) {
             String jti = jwtUtils.getJtiFromToken(accessToken);
             long expirationMs = jwtUtils.getExpirationMs(accessToken);

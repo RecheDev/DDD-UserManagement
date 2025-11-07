@@ -4,7 +4,6 @@ package com.portfolio.usermanagement.exception;
  * Exception thrown when a requested resource is not found.
  * Maps to HTTP 404 Not Found.
  *
- * @author Portfolio Project
  */
 public class ResourceNotFoundException extends RuntimeException {
 

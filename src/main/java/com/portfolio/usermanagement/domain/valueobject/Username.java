@@ -6,10 +6,7 @@ import lombok.Getter;
 import java.util.regex.Pattern;
 
 /**
- * Value Object representing a username.
- * Ensures username validity and immutability.
- *
- * @author Portfolio Project
+ * Value object for usernames with validation.
  */
 @Getter
 @EqualsAndHashCode
@@ -25,13 +22,6 @@ public class Username {
         this.value = value;
     }
 
-    /**
-     * Creates a Username value object from a string.
-     *
-     * @param username the username string
-     * @return Username value object
-     * @throws IllegalArgumentException if username is invalid
-     */
     public static Username of(String username) {
         if (username == null || username.isBlank()) {
             throw new IllegalArgumentException("Username cannot be null or blank");
@@ -52,20 +42,10 @@ public class Username {
         return new Username(trimmed);
     }
 
-    /**
-     * Check if username contains only alphanumeric characters.
-     *
-     * @return true if alphanumeric only
-     */
     public boolean isAlphanumeric() {
         return value.matches("^[a-zA-Z0-9]+$");
     }
 
-    /**
-     * Get the length of the username.
-     *
-     * @return username length
-     */
     public int length() {
         return value.length();
     }

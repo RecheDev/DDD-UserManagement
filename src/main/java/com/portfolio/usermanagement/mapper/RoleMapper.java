@@ -8,7 +8,6 @@ import org.mapstruct.ReportingPolicy;
 /**
  * Mapper for Role conversions between Entity and Domain layers.
  *
- * @author Portfolio Project
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RoleMapper {

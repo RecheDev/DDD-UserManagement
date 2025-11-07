@@ -4,7 +4,6 @@ package com.portfolio.usermanagement.exception;
  * Exception thrown when authentication is required or has failed.
  * Maps to HTTP 401 Unauthorized.
  *
- * @author Portfolio Project
  */
 public class UnauthorizedException extends RuntimeException {
 

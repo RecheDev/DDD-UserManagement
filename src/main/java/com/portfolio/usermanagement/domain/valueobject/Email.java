@@ -6,10 +6,7 @@ import lombok.Getter;
 import java.util.regex.Pattern;
 
 /**
- * Value Object representing an email address.
- * Ensures email validity and immutability.
- *
- * @author Portfolio Project
+ * Value object for email addresses with validation.
  */
 @Getter
 @EqualsAndHashCode
@@ -25,13 +22,6 @@ public class Email {
         this.value = value;
     }
 
-    /**
-     * Creates an Email value object from a string.
-     *
-     * @param email the email string
-     * @return Email value object
-     * @throws IllegalArgumentException if email is invalid
-     */
     public static Email of(String email) {
         if (email == null || email.isBlank()) {
             throw new IllegalArgumentException("Email cannot be null or blank");
@@ -50,32 +40,16 @@ public class Email {
         return new Email(trimmed);
     }
 
-    /**
-     * Get the domain part of the email.
-     *
-     * @return domain (e.g., "example.com")
-     */
     public String getDomain() {
         int atIndex = value.indexOf('@');
         return atIndex >= 0 ? value.substring(atIndex + 1) : "";
     }
 
-    /**
-     * Get the local part of the email (before @).
-     *
-     * @return local part
-     */
     public String getLocalPart() {
         int atIndex = value.indexOf('@');
         return atIndex >= 0 ? value.substring(0, atIndex) : value;
     }
 
-    /**
-     * Check if email belongs to a specific domain.
-     *
-     * @param domain the domain to check
-     * @return true if email is from this domain
-     */
     public boolean isFromDomain(String domain) {
         return getDomain().equalsIgnoreCase(domain);
     }

@@ -4,7 +4,6 @@ package com.portfolio.usermanagement.exception;
  * Exception thrown when a resource conflict occurs (e.g., duplicate resource).
  * Maps to HTTP 409 Conflict.
  *
- * @author Portfolio Project
  */
 public class ConflictException extends RuntimeException {
 

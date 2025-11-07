@@ -6,10 +6,7 @@ import lombok.*;
 import java.time.Instant;
 
 /**
- * Entity representing a refresh token for JWT token rotation.
- * Refresh tokens are long-lived tokens used to obtain new access tokens.
- *
- * @author Portfolio Project
+ * Refresh token entity for JWT token rotation.
  */
 @Entity
 @Table(

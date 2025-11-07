@@ -16,7 +16,6 @@ import java.util.Optional;
  *
  * The current user is retrieved from Spring Security's SecurityContext.
  *
- * @author Portfolio Project
  */
 @Component("auditorProvider")
 public class AuditorAwareImpl implements AuditorAware<String> {

@@ -4,7 +4,6 @@ package com.portfolio.usermanagement.exception;
  * Enum representing specific error codes for client-side error handling.
  * These codes provide machine-readable error identifiers.
  *
- * @author Portfolio Project
  */
 public enum ErrorCode {
     // Resource errors (404)

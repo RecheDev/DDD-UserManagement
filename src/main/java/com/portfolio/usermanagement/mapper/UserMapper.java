@@ -14,20 +14,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Mapper for User conversions between Entity, Domain, and DTO layers.
- * Uses MapStruct for automatic mapping and custom logic where needed.
- *
- * @author Portfolio Project
+ * Maps between User entity, domain, and DTO layers.
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
-    /**
-     * Convert User entity to UserDomain.
-     *
-     * @param user the User entity
-     * @return UserDomain
-     */
     @Mapping(target = "username", expression = "java(parseUsername(user.getUsername()))")
     @Mapping(target = "email", expression = "java(parseEmail(user.getEmail()))")
     @Mapping(target = "fullName", expression = "java(parseFullName(user.getFirstName(), user.getLastName()))")
@@ -35,12 +26,6 @@ public interface UserMapper {
     @Mapping(target = "roleNames", expression = "java(extractRoleNames(user.getRoles()))")
     UserDomain toDomain(User user);
 
-    /**
-     * Convert UserDomain to User entity.
-     *
-     * @param domain the UserDomain
-     * @return User entity
-     */
     @Mapping(target = "username", expression = "java(domain.getUsername().getValue())")
     @Mapping(target = "email", expression = "java(domain.getEmail().getValue())")
     @Mapping(target = "firstName", expression = "java(domain.getFullName().getFirstName())")
@@ -50,12 +35,6 @@ public interface UserMapper {
     @Mapping(target = "profile", ignore = true)
     User toEntity(UserDomain domain);
 
-    /**
-     * Convert UserDomain to UserResponse DTO.
-     *
-     * @param domain the UserDomain
-     * @return UserResponse DTO
-     */
     @Mapping(target = "username", expression = "java(domain.getUsername().getValue())")
     @Mapping(target = "email", expression = "java(domain.getEmail().getValue())")
     @Mapping(target = "firstName", expression = "java(domain.getFullName().getFirstName())")
@@ -63,22 +42,9 @@ public interface UserMapper {
     @Mapping(target = "roles", source = "roleNames")
     UserResponse toResponse(UserDomain domain);
 
-    /**
-     * Convert User entity directly to UserResponse DTO.
-     *
-     * @param user the User entity
-     * @return UserResponse DTO
-     */
     @Mapping(target = "roles", expression = "java(extractRoleNames(user.getRoles()))")
     UserResponse entityToResponse(User user);
 
-    /**
-     * Convert RegisterRequest DTO to UserDomain (for new users).
-     *
-     * @param request the RegisterRequest
-     * @param encryptedPassword the encrypted password
-     * @return UserDomain
-     */
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "username", expression = "java(parseUsername(request.getUsername()))")
     @Mapping(target = "email", expression = "java(parseEmail(request.getEmail()))")
@@ -93,32 +59,20 @@ public interface UserMapper {
     @Mapping(target = "updatedAt", ignore = true)
     UserDomain registerRequestToDomain(RegisterRequest request, String encryptedPassword);
 
-    /**
-     * Parse username string to Username value object.
-     */
     default Username parseUsername(String username) {
         return username != null ? Username.of(username) : null;
     }
 
-    /**
-     * Parse email string to Email value object.
-     */
     default Email parseEmail(String email) {
         return email != null ? Email.of(email) : null;
     }
 
-    /**
-     * Parse first and last name to FullName value object.
-     */
     default FullName parseFullName(String firstName, String lastName) {
         return (firstName != null && lastName != null)
             ? FullName.of(firstName, lastName)
             : null;
     }
 
-    /**
-     * Extract role names from Role entities.
-     */
     default Set<String> extractRoleNames(Set<Role> roles) {
         if (roles == null) {
             return Set.of();
@@ -128,12 +82,6 @@ public interface UserMapper {
             .collect(Collectors.toSet());
     }
 
-    /**
-     * Update existing User entity from UserDomain.
-     *
-     * @param domain the source UserDomain
-     * @param user the target User entity
-     */
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "username", expression = "java(domain.getUsername().getValue())")
     @Mapping(target = "email", expression = "java(domain.getEmail().getValue())")

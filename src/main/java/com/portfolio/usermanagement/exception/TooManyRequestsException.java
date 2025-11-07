@@ -4,7 +4,6 @@ package com.portfolio.usermanagement.exception;
  * Exception thrown when rate limit is exceeded.
  * Maps to HTTP 429 Too Many Requests.
  *
- * @author Portfolio Project
  */
 public class TooManyRequestsException extends RuntimeException {
 

@@ -16,7 +16,6 @@ import java.util.Optional;
  * Repository for RefreshToken entity.
  * Provides methods to manage refresh tokens for JWT authentication.
  *
- * @author Portfolio Project
  */
 @Repository
 public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {

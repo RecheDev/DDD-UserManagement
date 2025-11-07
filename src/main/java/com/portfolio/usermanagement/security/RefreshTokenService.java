@@ -23,7 +23,6 @@ import java.util.UUID;
  * Service for managing refresh tokens.
  * Handles creation, validation, rotation, and cleanup of refresh tokens.
  *
- * @author Portfolio Project
  */
 @Service
 @Transactional

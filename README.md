@@ -240,20 +240,6 @@ export LOGGING_LEVEL_ROOT=DEBUG
 - Wait 60 seconds before retrying
 - Check if you're hitting 60 req/min or 1000 req/hour limit
 
-## Deployment
-
-### Production Checklist
-
-- [ ] Use HTTPS
-- [ ] Set strong JWT_SECRET (64+ chars, random)
-- [ ] Change default admin password
-- [ ] Configure CORS for production domains only
-- [ ] Set up database backups
-- [ ] Configure log aggregation
-- [ ] Set up Prometheus monitoring
-- [ ] Use Docker secrets for sensitive values
-- [ ] Review security headers configuration
-
 ### Docker Production
 
 ```bash
